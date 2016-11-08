@@ -29,7 +29,9 @@ analytics.track = function() {
 };
 
 
-// alias `screen` as `page` for consistent with Analytics.js interface
+// Split the alias with `screen` and `page` in order to send `page` events to
+// Parse.ly from the app.
+/*
 analytics.screen = analytics.page = function() {
   var args = Array.prototype.slice.call(arguments);
 
@@ -38,6 +40,21 @@ analytics.screen = analytics.page = function() {
   }
 
   exec(null, null, 'AnalyticsPlugin', 'screen', getNArgs(args, 4));
+};
+*/
+
+analytics.screen = function() {
+  if (typeof args[1] !== 'string') {
+    args.unshift(null);
+  }
+  exec(null, null, 'AnalyticsPlugin', 'screen', getNArgs(args, 4));
+};
+
+analytics.page = function() {
+  if (typeof args[1] !== 'string') {
+    args.unshift(null);
+  }
+  exec(null, null, 'AnalyticsPlugin', 'page', getNArgs(args, 4));
 };
 
 analytics.alias = function() {
