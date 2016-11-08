@@ -44,6 +44,7 @@ analytics.screen = analytics.page = function() {
 */
 
 analytics.screen = function() {
+  var args = Array.prototype.slice.call(arguments);
   if (typeof args[1] !== 'string') {
     args.unshift(null);
   }
@@ -51,6 +52,7 @@ analytics.screen = function() {
 };
 
 analytics.page = function() {
+  var args = Array.prototype.slice.call(arguments);
   if (typeof args[1] !== 'string') {
     args.unshift(null);
   }
