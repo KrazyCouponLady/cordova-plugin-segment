@@ -48,12 +48,16 @@ public class AnalyticsPlugin extends CordovaPlugin {
             analytics = null;
             Log.e(TAG, "Invalid write key: " + writeKey);
         } else {
-            analytics = new Analytics.Builder(
-                cordova.getActivity().getApplicationContext(),
-                writeKey
-            ).logLevel(logLevel).trackApplicationLifecycleEvents().build();
+            try {
+                analytics = new Analytics.Builder(
+                        cordova.getActivity().getApplicationContext(),
+                        writeKey
+                ).logLevel(logLevel).trackApplicationLifecycleEvents().build();
 
-            Analytics.setSingletonInstance(analytics);
+                Analytics.setSingletonInstance(analytics);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -132,8 +136,7 @@ public class AnalyticsPlugin extends CordovaPlugin {
     private void page(JSONArray args) {
         analytics.with(cordova.getActivity().getApplicationContext()).page(
                 optArgString(args, 0),
-                optArgString(args, 1),
-                makePropertiesFromJSON(args.optJSONObject(2)),
+                makePropertiesFromJSON(args.optJSONObject(1)),
                 null // passing options is deprecated
         );
     }
