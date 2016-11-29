@@ -80,9 +80,6 @@ public class AnalyticsPlugin extends CordovaPlugin {
         } else if ("screen".equals(action)) {
             screen(args);
             return true;
-        } else if ("page".equals(action)) {
-            page(args);
-            return true;
         } else if ("alias".equals(action)) {
             alias(args);
             return true;
@@ -129,14 +126,6 @@ public class AnalyticsPlugin extends CordovaPlugin {
                 optArgString(args, 0),
                 optArgString(args, 1),
                 makePropertiesFromJSON(args.optJSONObject(2)),
-                null // passing options is deprecated
-        );
-    }
-
-    private void page(JSONArray args) {
-        analytics.with(cordova.getActivity().getApplicationContext()).page(
-                optArgString(args, 0),
-                makePropertiesFromJSON(args.optJSONObject(1)),
                 null // passing options is deprecated
         );
     }
